@@ -19,12 +19,20 @@ export function Modal({ isOpen, onClose, onLoginSuccess }) {
     try {
       const data = await loginUser(username, password);
       console.log('[Modal] Dados do login:', data);
+       // Verifique se o campo `accessToken` existe na resposta da API
+    if (data && data.accessToken) {
+      // Salve o token no localStorage
+      localStorage.setItem('user', JSON.stringify({ token: data.accessToken, username: data.username }));
+    } 
+
       setUsername("");
       setPassword("");
       onLoginSuccess({
         ...data,
         username: data.username || username
       });
+     
+      
     } catch (error) {
       console.error("[Modal]:", error.message);
       setError(
@@ -61,7 +69,7 @@ export function Modal({ isOpen, onClose, onLoginSuccess }) {
           Seja bem-vindo! É muito bom ter você aqui :) Pronto para começar sua
           preparação?
         </p>
-
+ 
         {error && <p className={styles.errorMessage}>{error}</p>}
 
         <form onSubmit={handleSubmit}>

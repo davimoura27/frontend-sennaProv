@@ -2,6 +2,8 @@ import { useFavoritos } from '../../hooks/useFavoritos';
 import { RiDeleteBinLine } from 'react-icons/ri'; // Importando ícone de lixeira
 import './favoritos.css';
 
+
+
 export function Favoritos() {
   const { favoritos, removerFavorito } = useFavoritos();
 
